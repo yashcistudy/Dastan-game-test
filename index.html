@@ -251,7 +251,7 @@ input[type=range]{width:100%;accent-color:var(--g);height:34px}
     <p style="color:var(--ink)">ارسال نشد (شاید اینترنت یا فیلتر). لطفاً این متن را برای یاس بفرست:</p>
     <pre id="fb-text"></pre>
     <button class="btn" id="fb-copy">کپی متن</button>
-    <a class="btn ghost" id="fb-tg" target="_blank" rel="noopener" style="text-align:center;text-decoration:none">ارسال با تلگرام</a>
+    <a class="btn ghost" id="fb-tg" target="_blank" rel="noopener" style="text-align:center;text-decoration:none">کپی و ارسال به یاس در تلگرام</a>
     <button class="btn ghost" id="fb-retry">دوباره امتحان کن</button>
   </div>
 </section>
@@ -261,7 +261,7 @@ input[type=range]{width:100%;accent-color:var(--g);height:34px}
 /* 1) Put your Formspree endpoint here, e.g. https://formspree.io/f/abcdwxyz */
 const FORMSPREE = 'https://formspree.io/f/xkjgverw';
 /* 2) Optional: your Telegram username, so the fallback opens a chat with you (no @) */
-const TELEGRAM_USER = '';
+const TELEGRAM_USER = 'fantastiquemsfox';
 
 const WORDS = ["اصیل", "خانوادگی", "قابل‌اعتماد", "لوکس", "ساده", "مدرن", "سنتی", "گرم", "جدی", "شاد", "شلوغ", "سرد", "گران", "معمولی"];
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -395,6 +395,7 @@ async function send() {
 }
 $('#send').onclick = send;
 $('#fb-retry').onclick = () => { $('#fb').classList.remove('on'); show(7); send(); };
+$('#fb-tg').addEventListener('click', () => { try { navigator.clipboard.writeText($('#fb-text').textContent); } catch (e) {} });
 $('#fb-copy').onclick = async () => { try { await navigator.clipboard.writeText($('#fb-text').textContent); $('#fb-copy').textContent = 'کپی شد ✓'; } catch (e) { const r = document.createRange(); r.selectNodeContents($('#fb-text')); getSelection().removeAllRanges(); getSelection().addRange(r); } };
 </script>
 </body>
